@@ -4,22 +4,46 @@
 
 ## 安装
 
-### 方式一：从 GitHub 仓库安装（推荐团队使用）
+> 要求 Claude Code **v1.0.33+**（运行 `claude --version` 查看版本）。
 
-```bash
-claude plugin:install --from github:bovinphang/frontend-craft
+### 方式一：通过 Marketplace 安装（推荐）
+
+在 Claude Code 会话中执行以下命令，先添加 Marketplace，再安装插件：
+
+```
+/plugin marketplace add bovinphang/frontend-craft
+/plugin install frontend-craft@bovinphang-frontend-craft
 ```
 
-安装后插件会自动注册，下次启动 Claude Code 即可使用。
+安装后执行 `/reload-plugins` 激活插件。
 
-### 方式二：克隆仓库后本地安装
+### 方式二：团队项目级自动安装（推荐团队使用）
+
+在项目根目录的 `.claude/settings.json` 中添加 Marketplace 配置，团队成员 trust 项目目录后自动提示安装：
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "frontend-craft": {
+      "source": {
+        "source": "github",
+        "repo": "bovinphang/frontend-craft"
+      }
+    }
+  }
+}
+```
+
+### 方式三：本地开发 / 测试
+
+克隆仓库后使用 `--plugin-dir` 加载（不需要安装，适合开发调试）：
 
 ```bash
 git clone https://github.com/bovinphang/frontend-craft.git
-claude plugin:install ./frontend-craft
+claude --plugin-dir ./frontend-craft
 ```
 
-### 方式三：作为项目级插件（团队共享配置）
+### 方式四：作为 Git Submodule（项目级共享）
 
 ```bash
 # 在项目根目录下添加为 submodule
@@ -35,21 +59,18 @@ git commit -m "feat: add frontend-craft as shared Claude Code plugin"
 git submodule update --init --recursive
 ```
 
-### 方式四：手动安装
+然后使用 `--plugin-dir` 加载：
 
-将插件目录直接复制到 Claude Code 用户级插件目录下：
-
-| 系统 | 路径 |
-|------|------|
-| macOS / Linux | `~/.claude/plugins/frontend-craft/` |
-| Windows | `%USERPROFILE%\.claude\plugins\frontend-craft\` |
+```bash
+claude --plugin-dir .claude/plugins/frontend-craft
+```
 
 ## 快速开始：初始化项目配置
 
-安装插件后，在 Claude Code 中运行 `/init` 命令，将项目模板初始化到当前项目的 `.claude/` 目录：
+安装插件后，在 Claude Code 中运行 `/frontend-craft:init` 命令，将项目模板初始化到当前项目的 `.claude/` 目录：
 
 ```
-> /init
+> /frontend-craft:init
 ```
 
 初始化后请根据项目实际情况修改：
@@ -66,9 +87,9 @@ git submodule update --init --recursive
 
 | 命令 | 用途 |
 |------|------|
-| `/init` | 将项目模板初始化到当前项目的 `.claude/` 目录 |
-| `/review` | 对指定文件或最近变更的代码执行规范化评审，输出分级报告 |
-| `/scaffold` | 按项目规范创建 page / feature / component 标准目录结构和样板文件 |
+| `/frontend-craft:init` | 将项目模板初始化到当前项目的 `.claude/` 目录 |
+| `/frontend-craft:review` | 对指定文件或最近变更的代码执行规范化评审，输出分级报告 |
+| `/frontend-craft:scaffold` | 按项目规范创建 page / feature / component 标准目录结构和样板文件 |
 
 ### Skills（自动激活）
 
@@ -230,9 +251,20 @@ frontend-craft/
 
 ## 更新
 
-```bash
-claude plugin:update frontend-craft
+通过 Marketplace 安装的插件，在 Claude Code 中执行：
+
 ```
+/plugin marketplace update bovinphang-frontend-craft
+```
+
+或开启自动更新，每次启动 Claude Code 时自动拉取最新版本：
+
+1. 在 Claude Code 中执行 `/plugin` 打开插件管理器
+2. 切换到 **Marketplaces** 标签页
+3. 选中 `bovinphang-frontend-craft`
+4. 选择 **Enable auto-update**
+
+> 第三方 Marketplace 默认不开启自动更新，需手动启用。启用后 Claude Code 每次启动时会自动刷新 Marketplace 数据并更新已安装的插件。
 
 如果使用 Git submodule 方式安装：
 
