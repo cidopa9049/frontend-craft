@@ -1,7 +1,7 @@
 ---
 name: accessibility-check
-description: 审查或改进前端 UI 的语义结构、键盘支持、焦点管理、标签以及常见的 WCAG 相关问题。当用户提到无障碍、accessibility、a11y、WCAG，或在实现交互组件时自动激活。
-version: 1.0.0
+description: 审查或改进前端 UI 的语义结构、键盘支持、焦点管理、标签以及常见的 WCAG 相关问题，并将报告保存为 Markdown 文件。当用户提到无障碍、accessibility、a11y、WCAG，或在实现交互组件时自动激活。
+version: 1.1.0
 ---
 
 # 无障碍实现规范（WCAG 2.1 AA）
@@ -43,11 +43,32 @@ version: 1.0.0
 
 ## 输出格式
 
-返回：
+```
+# 无障碍检查报告
 
-- 必须修复
-- 建议改进
-- 已通过项
-- 建议的代码修改
+> 生成时间: YYYY-MM-DD HH:mm
+> 评审工具: frontend-craft
+> 标准: WCAG 2.1 AA
+
+## 🔴 必须修复 (N项)
+- **[文件:行号]** 问题描述 → 建议修改
+
+## 🟡 建议改进 (N项)
+- **[文件:行号]** 问题描述 → 建议修改
+
+## ✅ 已通过项
+- ...
+
+## 建议的代码修改
+- ...
+```
+
+## 报告文件输出
+
+检查完成后，必须将报告内容使用 Write 工具保存为 Markdown 文件：
+
+- 目录：项目根目录下的 `reports/`（如不存在则创建）
+- 文件名：`accessibility-review-YYYY-MM-DD-HHmmss.md`（使用当前时间戳）
+- 保存后告知用户报告文件路径
 
 务求实用。优先使用原生语义，不要过度依赖 ARIA。

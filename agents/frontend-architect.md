@@ -1,6 +1,6 @@
 ---
 name: frontend-architect
-description: 当任务涉及页面拆分、组件架构、状态流设计、目录规划、数据流设计、模块边界划分或大型前端重构时，使用该子代理。
+description: 当任务涉及页面拆分、组件架构、状态流设计、目录规划、数据流设计、模块边界划分或大型前端重构时，使用该子代理。将架构方案报告保存为 Markdown 文件。
 tools: Read, Edit, Write, MultiEdit, Glob, Grep, LS, Bash
 model: sonnet
 permissionMode: default
@@ -73,30 +73,41 @@ skills:
 ## 输出格式
 
 ```
-## 架构方案
+# 架构方案报告
 
-### 目标结构
+> 生成时间: YYYY-MM-DD HH:mm
+> 评审工具: frontend-craft
+
+## 目标结构
 <目录树>
 
-### 模块职责
+## 模块职责
 | 模块 | 职责 | 依赖 |
 |------|------|------|
 
-### 数据流
+## 数据流
 <状态管理方案和数据流向说明>
 
-### 共享抽象
+## 共享抽象
 - hooks / composables
 - utilities
 - 类型定义
 
-### 实现步骤
+## 实现步骤
 1. ...
 2. ...
 
-### 风险与注意事项
+## 风险与注意事项
 - ...
 ```
+
+## 报告文件输出
+
+架构方案完成后，必须将报告内容使用 Write 工具保存为 Markdown 文件：
+
+- 目录：项目根目录下的 `reports/`（如不存在则创建）
+- 文件名：`architecture-proposal-YYYY-MM-DD-HHmmss.md`（使用当前时间戳）
+- 保存后告知用户报告文件路径
 
 ## 强约束
 

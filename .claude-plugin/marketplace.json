@@ -1,7 +1,7 @@
 {
     "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
     "name": "frontend-craft",
-    "description": "Shared Claude Code plugin for frontend teams — agents, skills, hooks, and project templates for code review, design-to-code, architecture planning, security review, and UI debugging",
+    "description": "Shared Claude Code plugin for frontend teams — agents, skills, hooks, and project templates for code review, design-to-code, architecture planning, security review, and UI debugging. All reports auto-saved as Markdown.",
     "owner": {
         "name": "Bovin Phang",
         "email": "pengbaowen@msn.com"
@@ -13,7 +13,7 @@
         {
             "name": "frontend-craft",
             "source": "./",
-            "description": "Enterprise frontend team Claude Code plugin — 5 agents, 8 skills, 3 commands, 11 project rule templates, and production-ready hooks for code review, security review, performance optimization, scaffolding, design-to-code (Figma/Sketch/MasterGo/Pixso/墨刀/摹客), architecture planning, and UI debugging with multi-design-tool MCP integration",
+            "description": "Enterprise frontend team Claude Code plugin — 5 agents, 8 skills, 3 commands, 11 project rule templates, and production-ready hooks for code review, security review, performance optimization, scaffolding, design-to-code (Figma/Sketch/MasterGo/Pixso/墨刀/摹客), architecture planning, and UI debugging with multi-design-tool MCP integration. All reports auto-saved as Markdown files to reports/ directory.",
             "version": "1.0.0",
             "author": {
                 "name": "Bovin Phang",

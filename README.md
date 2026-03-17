@@ -1,6 +1,6 @@
 # frontend-craft
 
-面向企业级前端团队的 Claude Code 共享插件，集成代码审查、安全审查、设计稿还原（Figma/Sketch/MasterGo/Pixso/墨刀/摹客）、无障碍检查、自动化质量保障和项目规范模板。
+面向企业级前端团队的 Claude Code 共享插件，集成代码审查、安全审查、设计稿还原（Figma/Sketch/MasterGo/Pixso/墨刀/摹客）、无障碍检查、自动化质量保障和项目规范模板。所有审查、分析和评估报告均自动保存为 Markdown 文件至项目 `reports/` 目录，便于存档、追溯和团队共享。
 
 ## 安装
 
@@ -85,34 +85,34 @@ claude --plugin-dir .claude/plugins/frontend-craft
 
 ### Commands（斜杠命令）
 
-| 命令 | 用途 |
-|------|------|
-| `/frontend-craft:init` | 将项目模板初始化到当前项目的 `.claude/` 目录 |
-| `/frontend-craft:review` | 对指定文件或最近变更的代码执行规范化评审，输出分级报告 |
-| `/frontend-craft:scaffold` | 按项目规范创建 page / feature / component 标准目录结构和样板文件 |
+| 命令 | 用途 | 输出报告 |
+|------|------|----------|
+| `/frontend-craft:init` | 将项目模板初始化到当前项目的 `.claude/` 目录 | — |
+| `/frontend-craft:review` | 对指定文件或最近变更的代码执行规范化评审，输出分级报告 | `code-review-*.md` |
+| `/frontend-craft:scaffold` | 按项目规范创建 page / feature / component 标准目录结构和样板文件 | — |
 
 ### Skills（自动激活）
 
-| Skill | 用途 |
-|-------|------|
-| `frontend-code-review` | 从架构、类型、渲染、样式、可访问性等维度审查代码 |
-| `security-review` | XSS、CSRF、敏感数据泄露、输入校验等安全审查 |
-| `accessibility-check` | WCAG 2.1 AA 无障碍检查 |
-| `react-project-standard` | React + TypeScript 项目工程规范（结构、组件、路由、状态、API 层） |
-| `vue3-project-standard` | Vue 3 + TypeScript 项目工程规范（结构、组件、路由、Pinia、API 层） |
-| `implement-from-design` | 基于 Figma/Sketch/MasterGo/Pixso/墨刀/摹客设计稿实现 UI |
-| `test-and-fix` | 执行 lint、type-check、test、build 并修复失败 |
-| `legacy-web-standard` | JS + jQuery + HTML 传统项目的开发与维护规范 |
+| Skill | 用途 | 输出报告 |
+|-------|------|----------|
+| `frontend-code-review` | 从架构、类型、渲染、样式、可访问性等维度审查代码 | `code-review-*.md` |
+| `security-review` | XSS、CSRF、敏感数据泄露、输入校验等安全审查 | `security-review-*.md` |
+| `accessibility-check` | WCAG 2.1 AA 无障碍检查 | `accessibility-review-*.md` |
+| `react-project-standard` | React + TypeScript 项目工程规范（结构、组件、路由、状态、API 层） | — |
+| `vue3-project-standard` | Vue 3 + TypeScript 项目工程规范（结构、组件、路由、Pinia、API 层） | — |
+| `implement-from-design` | 基于 Figma/Sketch/MasterGo/Pixso/墨刀/摹客设计稿实现 UI | `design-plan-*.md` |
+| `test-and-fix` | 执行 lint、type-check、test、build 并修复失败 | `test-fix-*.md` |
+| `legacy-web-standard` | JS + jQuery + HTML 传统项目的开发与维护规范 | — |
 
 ### Agents（子代理）
 
-| Agent | 用途 |
-|-------|------|
-| `frontend-architect` | 页面拆分、组件架构、状态流设计、目录规划、大型重构 |
-| `performance-optimizer` | 分析性能瓶颈（打包体积、渲染性能、网络请求），输出量化优化方案 |
-| `ui-checker` | UI 视觉问题排查、设计还原度评估 |
-| `figma-implementer` | 按 Figma/Sketch/MasterGo/Pixso/墨刀/摹客设计稿精确实现 UI |
-| `design-token-mapper` | 将设计变量映射到项目 Design Token |
+| Agent | 用途 | 输出报告 |
+|-------|------|----------|
+| `frontend-architect` | 页面拆分、组件架构、状态流设计、目录规划、大型重构 | `architecture-proposal-*.md` |
+| `performance-optimizer` | 分析性能瓶颈（打包体积、渲染性能、网络请求），输出量化优化方案 | `performance-review-*.md` |
+| `ui-checker` | UI 视觉问题排查、设计还原度评估 | `ui-fidelity-review-*.md` |
+| `figma-implementer` | 按 Figma/Sketch/MasterGo/Pixso/墨刀/摹客设计稿精确实现 UI | `design-implementation-*.md` |
+| `design-token-mapper` | 将设计变量映射到项目 Design Token | `token-mapping-*.md` |
 
 ### Hooks（自动执行）
 
@@ -248,6 +248,25 @@ frontend-craft/
 ├── .mcp.json                   # MCP 服务器配置
 └── README.md
 ```
+
+## 报告输出
+
+所有审查、分析和评估功能均自动将报告保存为 Markdown 文件至项目根目录下的 `reports/` 目录。
+
+| 报告类型 | 文件名模式 | 来源 |
+|----------|-----------|------|
+| 代码审查 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 命令、`frontend-code-review` skill |
+| 安全审查 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill |
+| 无障碍检查 | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` skill |
+| 性能分析 | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` agent |
+| 架构方案 | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` agent |
+| 设计还原度 | `ui-fidelity-review-YYYY-MM-DD-HHmmss.md` | `ui-checker` agent |
+| 设计实现 | `design-implementation-YYYY-MM-DD-HHmmss.md` | `figma-implementer` agent |
+| Token 映射 | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` agent |
+| 设计计划 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` skill |
+| 测试修复 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` skill |
+
+> **建议**：在 `.gitignore` 中添加 `reports/` 以避免将自动生成的报告提交到代码仓库，或保留提交以便团队成员查看历史审查记录。
 
 ## 更新
 

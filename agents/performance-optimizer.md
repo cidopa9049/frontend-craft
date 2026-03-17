@@ -1,6 +1,6 @@
 ---
 name: performance-optimizer
-description: 分析前端性能瓶颈并给出优化方案。当用户提到页面慢、卡顿、首屏加载慢、包体积大、渲染性能差、Core Web Vitals 不达标时，使用该子代理。
+description: 分析前端性能瓶颈并给出优化方案，将报告保存为 Markdown 文件。当用户提到页面慢、卡顿、首屏加载慢、包体积大、渲染性能差、Core Web Vitals 不达标时，使用该子代理。
 tools: Read, Edit, Write, MultiEdit, Glob, Grep, LS, Bash
 model: sonnet
 permissionMode: default
@@ -87,26 +87,37 @@ skills:
 ## 输出格式
 
 ```
-## 性能分析报告
+# 性能分析报告
 
-### 当前状况
+> 生成时间: YYYY-MM-DD HH:mm
+> 评审工具: frontend-craft
+
+## 当前状况
 - 打包总大小: XXX KB
 - 最大 chunk: XXX KB
 - 主要依赖体积: ...
 
-### 🔴 高影响优化 (N项)
-1. [问题描述] → [具体修改] → [预估效果]
+## 🔴 高影响优化 (N项)
+1. **[问题描述]** → [具体修改] → [预估效果]
 
-### 🟡 中等影响优化 (N项)
+## 🟡 中等影响优化 (N项)
 1. ...
 
-### 🔵 低优先级优化 (N项)
+## 🔵 低优先级优化 (N项)
 1. ...
 
-### 优化路线图
+## 优化路线图
 1. 第一步: ... (预计收益最大)
 2. 第二步: ...
 ```
+
+## 报告文件输出
+
+分析完成后，必须将报告内容使用 Write 工具保存为 Markdown 文件：
+
+- 目录：项目根目录下的 `reports/`（如不存在则创建）
+- 文件名：`performance-review-YYYY-MM-DD-HHmmss.md`（使用当前时间戳）
+- 保存后告知用户报告文件路径
 
 ## 强约束
 

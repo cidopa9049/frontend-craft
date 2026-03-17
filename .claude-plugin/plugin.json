@@ -1,7 +1,7 @@
 {
     "name": "frontend-craft",
     "version": "1.0.0",
-    "description": "Shared Claude Code plugin for frontend teams, including frontend skills, subagents, hooks, and MCP integration for Figma/Sketch/MasterGo/Pixso/墨刀/摹客.",
+    "description": "Shared Claude Code plugin for frontend teams, including frontend skills, subagents, hooks, and MCP integration for Figma/Sketch/MasterGo/Pixso/墨刀/摹客. All reports auto-saved as Markdown files.",
     "author": {
         "name": "Bovin Phang",
         "email": "pengbaowen@msn.com"
