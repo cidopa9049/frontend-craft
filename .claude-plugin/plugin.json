@@ -1,0 +1,20 @@
+{
+    "name": "frontend-craft",
+    "version": "1.0.0",
+    "description": "Shared Claude Code plugin for frontend teams, including frontend skills, subagents, hooks, and MCP integration for Figma/Sketch.",
+    "author": {
+        "name": "Bovin Phang",
+        "email": "pengbaowen@msn.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "frontend",
+        "vue3",
+        "react",
+        "figma",
+        "sketch",
+        "mcp",
+        "design-to-code",
+        "claude-code"
+    ]
+}
