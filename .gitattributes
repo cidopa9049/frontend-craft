@@ -1,0 +1,7 @@
+# Force LF line endings for shell scripts and JSON configs
+# Prevents CRLF issues on Windows that break bash execution
+*.sh text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+hooks/** text eol=lf
+scripts/** text eol=lf

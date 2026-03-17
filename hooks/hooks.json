@@ -6,7 +6,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/security-check.sh",
+                        "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/security-check.sh\"",
                         "timeout": 20,
                         "statusMessage": "Checking command safety..."
                     }
@@ -19,7 +19,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/format-changed-file.sh",
+                        "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/format-changed-file.sh\"",
                         "timeout": 180,
                         "statusMessage": "Running formatter..."
                     }
@@ -32,7 +32,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-start.sh",
+                        "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.sh\"",
                         "timeout": 10
                     }
                 ]
@@ -44,7 +44,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/run-tests.sh",
+                        "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/run-tests.sh\"",
                         "timeout": 300,
                         "statusMessage": "Running final validation..."
                     }
@@ -57,7 +57,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh"
+                        "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh\""
                     }
                 ]
             }
