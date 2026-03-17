@@ -224,12 +224,12 @@ frontend-craft/
 │   └── legacy-web-standard/
 ├── hooks/
 │   └── hooks.json              # 事件钩子配置
-├── scripts/                    # 辅助脚本
-│   ├── security-check.sh
-│   ├── format-changed-file.sh
-│   ├── run-tests.sh
-│   ├── session-start.sh
-│   └── notify.sh
+├── scripts/                    # 辅助脚本（Node.js，跨平台）
+│   ├── security-check.mjs
+│   ├── format-changed-file.mjs
+│   ├── run-tests.mjs
+│   ├── session-start.mjs
+│   └── notify.mjs
 ├── templates/                  # 项目级配置模板
 │   ├── CLAUDE.md
 │   ├── settings.json
