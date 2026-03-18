@@ -53,7 +53,7 @@
 初始化後請依專案實際情況修改：
 
 1. `.claude/CLAUDE.md` — 修改專案基礎資訊、套件管理工具、常用指令
-2. `.claude/rules/` — 刪除不適用的規則檔案（如純 React 專案刪除 `vue.md`，不需要 i18n 的專案刪除 `i18n.md`）
+2. `.claude/rules/` — 刪除不適用的規則檔案（如純 React 專案刪除 `vue.md`，不需要 i18n 的專案刪除 `i18n.md`）；若專案有 CI/CD 流水線，可保留 `ci-cd.md`
 3. `.claude/settings.json` — 調整權限白名單
 
 > **為什麼需要這一步？** 插件提供的是可複用的 Skills、Agents 和 Hooks，而 CLAUDE.md 和 rules 是專案級設定，必須位於專案根目錄的 `.claude/` 下才能被 Claude Code 識別。`/init` 指令可協助你快速完成此設定。
@@ -72,7 +72,7 @@
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **完成！** 您現在可使用 5 個代理、9 個技能與 3 個指令。
+✨ **完成！** 您現在可使用 5 個代理、14 個技能與 3 個指令。
 
 ---
 
@@ -108,7 +108,11 @@ frontend-craft/
 |   |-- implement-from-design/   # 依設計稿實作 UI
 |   |-- test-and-fix/           # lint、type-check、test、build 並修復
 |   |-- legacy-web-standard/    # JS + jQuery + HTML 傳統專案規範
-|   └-- legacy-to-modern-migration/  # jQuery/MPA 遷移至 React/Vue 策略與流程
+|   |-- legacy-to-modern-migration/  # jQuery/MPA 遷移至 React/Vue 策略與流程
+|   |-- e2e-testing/                # Playwright/Cypress E2E 測試規範
+|   |-- nextjs-project-standard/    # Next.js 14+ App Router、SSR/SSG 規範
+|   |-- nuxt-project-standard/      # Nuxt 3 SSR/SSG、組合式 API 規範
+|   |-- monorepo-project-standard/  # pnpm workspace、Turborepo、Nx 規範
 |
 |-- commands/         # 斜線指令
 |   |-- init.md        # /init - 初始化專案範本
@@ -225,6 +229,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `test-and-fix` | 執行 lint、type-check、test、build 並修復失敗 | `test-fix-*.md` |
 | `legacy-web-standard` | JS + jQuery + HTML 傳統專案的開發與維護規範 | — |
 | `legacy-to-modern-migration` | jQuery/MPA 遷移至 React/Vue 3 + TS 的策略、概念對應與分階段流程 | `migration-plan-*.md` |
+| `e2e-testing` | Playwright/Cypress E2E 測試規範：目錄結構、Page Object、CI 整合 | — |
+| `nextjs-project-standard` | Next.js 14+ App Router、SSR/SSG、流式渲染、元資料規範 | — |
+| `nuxt-project-standard` | Nuxt 3 SSR/SSG、組合式 API、資料獲取、路由、中介軟體規範 | — |
+| `monorepo-project-standard` | pnpm workspace、Turborepo、Nx：目錄結構、依賴管理、任務編排 | — |
 
 ### Agents（子代理）
 
@@ -275,6 +283,7 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `rules/state-management.md` | 狀態分類、管理策略、反模式 |
 | `rules/error-handling.md` | 錯誤分層、Error Boundary、降級 UI、上報規範 |
 | `rules/naming-conventions.md` | 檔案、元件、變數、路由、API、CSS 統一命名規範 |
+| `rules/ci-cd.md` | CI/CD 流水線階段、GitHub Actions / GitLab CI 範例、金鑰管理 |
 
 ---
 

@@ -10,6 +10,10 @@ skills:
   - vue3-project-standard
   - react-project-standard
   - legacy-to-modern-migration
+  - e2e-testing
+  - nextjs-project-standard
+  - nuxt-project-standard
+  - monorepo-project-standard
 ---
 
 你是一名资深前端架构专家。

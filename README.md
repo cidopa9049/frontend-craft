@@ -72,7 +72,7 @@ After initialization, customize for your project:
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **Done!** You now have access to 5 agents, 9 skills, and 3 commands.
+✨ **Done!** You now have access to 5 agents, 14 skills, and 3 commands.
 
 ---
 
@@ -109,6 +109,10 @@ frontend-craft/
 |   |-- test-and-fix/            # lint, type-check, test, build and fix
 |   |-- legacy-web-standard/     # JS + jQuery + HTML legacy project standards
 |   |-- legacy-to-modern-migration/  # jQuery/MPA migration to React/Vue strategy and workflow
+|   |-- e2e-testing/                # Playwright/Cypress E2E testing standards
+|   |-- nextjs-project-standard/    # Next.js 14+ App Router, SSR/SSG standards
+|   |-- nuxt-project-standard/      # Nuxt 3 SSR/SSG, composables standards
+|   |-- monorepo-project-standard/  # pnpm workspace, Turborepo, Nx standards
 |
 |-- commands/         # Slash commands for quick execution
 |   |-- init.md        # /init - Initialize project templates
@@ -225,6 +229,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `test-and-fix` | Run lint, type-check, test, build and fix failures | `test-fix-*.md` |
 | `legacy-web-standard` | Development and maintenance standards for JS + jQuery + HTML legacy projects | — |
 | `legacy-to-modern-migration` | Strategy, concept mapping, and phased workflow for jQuery/MPA → React/Vue 3 + TS | `migration-plan-*.md` |
+| `e2e-testing` | Playwright/Cypress E2E standards: directory structure, Page Object, CI integration | — |
+| `nextjs-project-standard` | Next.js 14+ App Router, SSR/SSG, streaming, metadata, middleware standards | — |
+| `nuxt-project-standard` | Nuxt 3 SSR/SSG, composables, data fetching, routing, middleware standards | — |
+| `monorepo-project-standard` | pnpm workspace, Turborepo, Nx: structure, deps, task orchestration | — |
 
 ### Agents
 
@@ -275,6 +283,7 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `rules/state-management.md` | State classification, management strategy, anti-patterns |
 | `rules/error-handling.md` | Error layering, Error Boundary, fallback UI, reporting standards |
 | `rules/naming-conventions.md` | Unified naming for files, components, variables, routes, API, CSS |
+| `rules/ci-cd.md` | CI/CD pipeline stages, GitHub Actions / GitLab CI examples, secrets handling |
 
 ---
 

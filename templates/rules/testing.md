@@ -47,6 +47,17 @@
 
 结论要具体且可执行。
 
+## E2E 测试规则
+
+使用 Playwright 或 Cypress 时：
+
+- 遵循 Page Object 模式，测试用例不直接写选择器
+- 选择器优先使用 `data-testid`，其次 `role`、`label`
+- 避免固定等待（`setTimeout`），使用 `waitFor`、`expect` 等断言
+- 关键流程至少覆盖桌面、平板、移动端视口
+- 用例可独立运行，不依赖执行顺序
+- 失败时保留截图、Trace、视频，便于排查
+
 ## 重构规则
 
 进行重构时：

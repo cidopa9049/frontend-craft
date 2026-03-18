@@ -53,7 +53,7 @@
 初期化後、プロジェクトに合わせて以下を編集してください：
 
 1. `.claude/CLAUDE.md` — プロジェクト情報、パッケージマネージャー、常用コマンド
-2. `.claude/rules/` — 不要なルールを削除（例：React のみの場合は `vue.md`、i18n 不要なら `i18n.md`）
+2. `.claude/rules/` — 不要なルールを削除（例：React のみの場合は `vue.md`、i18n 不要なら `i18n.md`）；CI/CD パイプラインがある場合は `ci-cd.md` を残す
 3. `.claude/settings.json` — 権限ホワイトリストの調整
 
 > **なぜ必要？** プラグインは再利用可能な Skills、Agents、Hooks を提供します。CLAUDE.md と rules はプロジェクト級の設定で、Claude Code が認識するにはプロジェクトルートの `.claude/` 配下にある必要があります。`/init` コマンドで素早く設定できます。
@@ -72,7 +72,7 @@
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **完了！** 5 つのエージェント、9 つのスキル、3 つのコマンドが利用可能です。
+✨ **完了！** 5 つのエージェント、14 つのスキル、3 つのコマンドが利用可能です。
 
 ---
 
@@ -108,7 +108,11 @@ frontend-craft/
 |   |-- implement-from-design/   # デザインから UI を実装
 |   |-- test-and-fix/           # lint、type-check、test、build と修正
 |   |-- legacy-web-standard/     # JS + jQuery + HTML レガシープロジェクト規約
-|   └-- legacy-to-modern-migration/  # jQuery/MPA から React/Vue への移行戦略とワークフロー
+|   |-- legacy-to-modern-migration/  # jQuery/MPA から React/Vue への移行戦略とワークフロー
+|   |-- e2e-testing/                # Playwright/Cypress E2E テスト規約
+|   |-- nextjs-project-standard/    # Next.js 14+ App Router、SSR/SSG 規約
+|   |-- nuxt-project-standard/      # Nuxt 3 SSR/SSG、Composition API 規約
+|   |-- monorepo-project-standard/  # pnpm workspace、Turborepo、Nx 規約
 |
 |-- commands/         # スラッシュコマンド
 |   |-- init.md        # /init - プロジェクトテンプレート初期化
@@ -225,6 +229,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `test-and-fix` | lint、type-check、test、build を実行し失敗を修正 | `test-fix-*.md` |
 | `legacy-web-standard` | JS + jQuery + HTML レガシープロジェクトの開発・保守規約 | — |
 | `legacy-to-modern-migration` | jQuery/MPA から React/Vue 3 + TS への移行戦略、概念マッピング、段階的ワークフロー | `migration-plan-*.md` |
+| `e2e-testing` | Playwright/Cypress E2E テスト規約：ディレクトリ構造、Page Object、CI 統合 | — |
+| `nextjs-project-standard` | Next.js 14+ App Router、SSR/SSG、ストリーミング、メタデータ規約 | — |
+| `nuxt-project-standard` | Nuxt 3 SSR/SSG、Composition API、データ取得、ルーティング、ミドルウェア規約 | — |
+| `monorepo-project-standard` | pnpm workspace、Turborepo、Nx：ディレクトリ構造、依存管理、タスク編成 | — |
 
 ### Agents（サブエージェント）
 
@@ -275,6 +283,7 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `rules/state-management.md` | 状態分類、管理戦略、アンチパターン |
 | `rules/error-handling.md` | エラー階層、Error Boundary、フォールバック UI、レポート規約 |
 | `rules/naming-conventions.md` | ファイル、コンポーネント、変数、ルート、API、CSS の統一命名規約 |
+| `rules/ci-cd.md` | CI/CD パイプライン段階、GitHub Actions / GitLab CI 例、シークレット管理 |
 
 ---
 

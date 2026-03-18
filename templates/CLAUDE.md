@@ -98,3 +98,4 @@
 @./rules/state-management.md
 @./rules/error-handling.md
 @./rules/naming-conventions.md
+@./rules/ci-cd.md

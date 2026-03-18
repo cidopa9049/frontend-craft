@@ -53,7 +53,7 @@
 初始化后请根据项目实际情况修改：
 
 1. `.claude/CLAUDE.md` — 修改项目基础信息、包管理器、常用命令
-2. `.claude/rules/` — 删除不适用的规则文件（如纯 React 项目删除 `vue.md`，不需要 i18n 的项目删除 `i18n.md`）
+2. `.claude/rules/` — 删除不适用的规则文件（如纯 React 项目删除 `vue.md`，不需要 i18n 的项目删除 `i18n.md`）；若项目有 CI/CD 流水线，可保留 `ci-cd.md`
 3. `.claude/settings.json` — 调整权限白名单
 
 > **为什么需要这一步？** 插件提供的是可复用的 Skills、Agents 和 Hooks，而 CLAUDE.md 和 rules 是项目级配置，必须位于项目根目录的 `.claude/` 下才能被 Claude Code 识别。`/init` 命令帮你快速完成这个配置。
@@ -72,7 +72,7 @@
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **完成！** 你现在可以使用 5 个代理、9 个技能和 3 个命令。
+✨ **完成！** 你现在可以使用 5 个代理、14 个技能和 3 个命令。
 
 ---
 
@@ -108,7 +108,11 @@ frontend-craft/
 |   |-- implement-from-design/   # 基于设计稿实现 UI
 |   |-- test-and-fix/           # lint、type-check、test、build 并修复
 |   |-- legacy-web-standard/    # JS + jQuery + HTML 传统项目规范
-|   └-- legacy-to-modern-migration/  # jQuery/MPA 迁移至 React/Vue 策略与流程
+|   |-- legacy-to-modern-migration/  # jQuery/MPA 迁移至 React/Vue 策略与流程
+|   |-- e2e-testing/                # Playwright/Cypress E2E 测试规范
+|   |-- nextjs-project-standard/    # Next.js 14+ App Router、SSR/SSG 规范
+|   |-- nuxt-project-standard/      # Nuxt 3 SSR/SSG、组合式 API 规范
+|   |-- monorepo-project-standard/  # pnpm workspace、Turborepo、Nx 规范
 |
 |-- commands/         # 用于快速执行的斜杠命令
 |   |-- init.md        # /init - 初始化项目模板
@@ -225,6 +229,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `test-and-fix` | 执行 lint、type-check、test、build 并修复失败 | `test-fix-*.md` |
 | `legacy-web-standard` | JS + jQuery + HTML 传统项目的开发与维护规范 | — |
 | `legacy-to-modern-migration` | jQuery/MPA 迁移至 React/Vue 3 + TS 的策略、概念映射与分阶段流程 | `migration-plan-*.md` |
+| `e2e-testing` | Playwright/Cypress E2E 测试规范：目录结构、Page Object、CI 集成 | — |
+| `nextjs-project-standard` | Next.js 14+ App Router、SSR/SSG、流式渲染、元数据规范 | — |
+| `nuxt-project-standard` | Nuxt 3 SSR/SSG、组合式 API、数据获取、路由、中间件规范 | — |
+| `monorepo-project-standard` | pnpm workspace、Turborepo、Nx：目录结构、依赖管理、任务编排 | — |
 
 ### Agents（子代理）
 
@@ -276,6 +284,7 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `rules/state-management.md` | 状态分类、管理策略、反模式 |
 | `rules/error-handling.md` | 错误分层、Error Boundary、降级 UI、上报规范 |
 | `rules/naming-conventions.md` | 文件、组件、变量、路由、API、CSS 统一命名规范 |
+| `rules/ci-cd.md` | CI/CD 流水线阶段、GitHub Actions / GitLab CI 示例、密钥管理 |
 
 ---
 

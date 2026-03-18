@@ -53,7 +53,7 @@
 초기화 후 프로젝트에 맞게 수정하세요:
 
 1. `.claude/CLAUDE.md` — 프로젝트 기본 정보, 패키지 매니저, 자주 쓰는 명령어
-2. `.claude/rules/` — 불필요한 규칙 삭제 (예: React 전용이면 `vue.md` 삭제, i18n 불필요 시 `i18n.md` 삭제)
+2. `.claude/rules/` — 불필요한 규칙 삭제 (예: React 전용이면 `vue.md` 삭제, i18n 불필요 시 `i18n.md` 삭제); CI/CD 파이프라인이 있으면 `ci-cd.md` 유지
 3. `.claude/settings.json` — 권한 화이트리스트 조정
 
 > **왜 필요한가요?** 플러그인은 재사용 가능한 Skills, Agents, Hooks를 제공합니다. CLAUDE.md와 rules는 프로젝트 수준 설정으로, Claude Code가 인식하려면 프로젝트 루트 `.claude/` 아래에 있어야 합니다. `/init` 명령어로 이 설정을 빠르게 완료할 수 있습니다.
@@ -72,7 +72,7 @@
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **완료!** 5개의 에이전트, 9개의 스킬, 3개의 명령어를 사용할 수 있습니다.
+✨ **완료!** 5개의 에이전트, 14개의 스킬, 3개의 명령어를 사용할 수 있습니다.
 
 ---
 
@@ -108,7 +108,11 @@ frontend-craft/
 |   |-- implement-from-design/   # 디자인에서 UI 구현
 |   |-- test-and-fix/           # lint, type-check, test, build 및 수정
 |   |-- legacy-web-standard/     # JS + jQuery + HTML 레거시 프로젝트 규약
-|   └-- legacy-to-modern-migration/  # jQuery/MPA → React/Vue 마이그레이션 전략 및 워크플로우
+|   |-- legacy-to-modern-migration/  # jQuery/MPA → React/Vue 마이그레이션 전략 및 워크플로우
+|   |-- e2e-testing/                # Playwright/Cypress E2E 테스트 규약
+|   |-- nextjs-project-standard/    # Next.js 14+ App Router, SSR/SSG 규약
+|   |-- nuxt-project-standard/      # Nuxt 3 SSR/SSG, Composition API 규약
+|   |-- monorepo-project-standard/  # pnpm workspace, Turborepo, Nx 규약
 |
 |-- commands/         # 슬래시 명령어
 |   |-- init.md        # /init - 프로젝트 템플릿 초기화
@@ -225,6 +229,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `test-and-fix` | lint, type-check, test, build 실행 및 실패 수정 | `test-fix-*.md` |
 | `legacy-web-standard` | JS + jQuery + HTML 레거시 프로젝트 개발·유지보수 규약 | — |
 | `legacy-to-modern-migration` | jQuery/MPA → React/Vue 3 + TS 마이그레이션 전략, 개념 매핑, 단계별 워크플로우 | `migration-plan-*.md` |
+| `e2e-testing` | Playwright/Cypress E2E 테스트 규약: 디렉터리 구조, Page Object, CI 통합 | — |
+| `nextjs-project-standard` | Next.js 14+ App Router, SSR/SSG, 스트리밍, 메타데이터 규약 | — |
+| `nuxt-project-standard` | Nuxt 3 SSR/SSG, Composition API, 데이터 페칭, 라우팅, 미들웨어 규약 | — |
+| `monorepo-project-standard` | pnpm workspace, Turborepo, Nx: 디렉터리 구조, 의존성 관리, 태스크 오케스트레이션 | — |
 
 ### Agents (서브 에이전트)
 
@@ -275,6 +283,7 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | `rules/state-management.md` | 상태 분류, 관리 전략, 안티패턴 |
 | `rules/error-handling.md` | 오류 계층화, Error Boundary, 폴백 UI, 리포팅 규약 |
 | `rules/naming-conventions.md` | 파일, 컴포넌트, 변수, 라우트, API, CSS 통일 명명 규약 |
+| `rules/ci-cd.md` | CI/CD 파이프라인 단계, GitHub Actions / GitLab CI 예시, 시크릿 관리 |
 
 ---
 
