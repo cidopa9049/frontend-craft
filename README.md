@@ -14,7 +14,7 @@
 
 **🌐 Language / 语言 / 語言 / 言語 / 언어**
 
-[**English**](README.md) | [简体中文](README.zh-CN.md)| [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md) | [한국어](docs/ko-KR/README.md)
+[**English**](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md) | [한국어](docs/ko-KR/README.md)
 
 </div>
 
@@ -50,7 +50,13 @@ Get started in 2 minutes:
 /frontend-craft:init
 ```
 
-After initialization, customize `.claude/CLAUDE.md`, `rules/`, and `settings.json` for your project.
+After initialization, customize for your project:
+
+1. `.claude/CLAUDE.md` — Update project info, package manager, common commands
+2. `.claude/rules/` — Remove inapplicable rules (e.g. delete `vue.md` for React-only projects, delete `i18n.md` if i18n is not needed)
+3. `.claude/settings.json` — Adjust permission whitelist
+
+> **Why this step?** The plugin provides reusable Skills, Agents, and Hooks. CLAUDE.md and rules are project-level config and must live under the project root `.claude/` for Claude Code to recognize them. The `/init` command helps you set this up quickly.
 
 ### Step 3: Start using
 
@@ -124,6 +130,7 @@ frontend-craft/
 |   |-- rules/         # vue, react, design-system, testing, etc.
 |
 |-- .mcp.json         # MCP server config (Figma, Sketch, MasterGo, Pixso, 墨刀)
+└-- README.md
 ```
 
 ---
@@ -135,7 +142,10 @@ frontend-craft/
 ### Option 1: Install as plugin (recommended)
 
 ```bash
+# Add marketplace
 /plugin marketplace add bovinphang/frontend-craft
+
+# Install plugin
 /plugin install frontend-craft@bovinphang-frontend-craft
 ```
 
@@ -160,6 +170,8 @@ Add the `extraKnownMarketplaces` config above to `.claude/settings.json` in the 
 
 ### Option 3: Local development / testing
 
+Clone the repo and load via `--plugin-dir` (no install, suitable for development and debugging):
+
 ```bash
 git clone https://github.com/bovinphang/frontend-craft.git
 claude --plugin-dir ./frontend-craft
@@ -168,9 +180,23 @@ claude --plugin-dir ./frontend-craft
 ### Option 4: Git Submodule (project-level sharing)
 
 ```bash
+# Add as submodule in project root
 git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugins/frontend-craft
-# Team: git submodule update --init --recursive
-# Load: claude --plugin-dir .claude/plugins/frontend-craft
+
+git add .gitmodules .claude/plugins/frontend-craft
+git commit -m "feat: add frontend-craft as shared Claude Code plugin"
+```
+
+After cloning, team members run:
+
+```bash
+git submodule update --init --recursive
+```
+
+Then load with `--plugin-dir`:
+
+```bash
+claude --plugin-dir .claude/plugins/frontend-craft
 ```
 
 ---
@@ -182,31 +208,31 @@ git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugi
 | Command | Purpose | Report output |
 |---------|---------|----------------|
 | `/frontend-craft:init` | Initialize project templates to `.claude/` | — |
-| `/frontend-craft:review` | Code review for specified or recently changed files | `code-review-*.md` |
-| `/frontend-craft:scaffold` | Create page / feature / component structure | — |
+| `/frontend-craft:review` | Code review for specified or recently changed files, output graded report | `code-review-*.md` |
+| `/frontend-craft:scaffold` | Create page / feature / component structure and boilerplate by convention | — |
 
 ### Skills (auto-activated)
 
 | Skill | Purpose | Report output |
 |-------|---------|----------------|
-| `frontend-code-review` | Architecture, types, rendering, styles, a11y | `code-review-*.md` |
-| `security-review` | XSS, CSRF, sensitive data, input validation | `security-review-*.md` |
-| `accessibility-check` | WCAG 2.1 AA accessibility | `accessibility-review-*.md` |
-| `react-project-standard` | React + TypeScript project standards | — |
-| `vue3-project-standard` | Vue 3 + TypeScript project standards | — |
-| `implement-from-design` | Implement UI from design files | `design-plan-*.md` |
-| `test-and-fix` | lint, type-check, test, build and fix | `test-fix-*.md` |
-| `legacy-web-standard` | JS + jQuery + HTML legacy standards | — |
+| `frontend-code-review` | Review code on architecture, types, rendering, styles, a11y | `code-review-*.md` |
+| `security-review` | Security review: XSS, CSRF, sensitive data leakage, input validation | `security-review-*.md` |
+| `accessibility-check` | WCAG 2.1 AA accessibility check | `accessibility-review-*.md` |
+| `react-project-standard` | React + TypeScript project standards (structure, components, routing, state, API layer) | — |
+| `vue3-project-standard` | Vue 3 + TypeScript project standards (structure, components, routing, Pinia, API layer) | — |
+| `implement-from-design` | Implement UI from Figma/Sketch/MasterGo/Pixso/墨刀/摹客 design files | `design-plan-*.md` |
+| `test-and-fix` | Run lint, type-check, test, build and fix failures | `test-fix-*.md` |
+| `legacy-web-standard` | Development and maintenance standards for JS + jQuery + HTML legacy projects | — |
 
 ### Agents
 
 | Agent | Purpose | Report output |
 |-------|---------|----------------|
-| `frontend-architect` | Page splitting, component architecture, state flow, refactoring | `architecture-proposal-*.md` |
-| `performance-optimizer` | Performance analysis, optimization recommendations | `performance-review-*.md` |
-| `ui-checker` | UI visual issues, design fidelity evaluation | `ui-fidelity-review-*.md` |
-| `figma-implementer` | Precise UI implementation from design | `design-implementation-*.md` |
-| `design-token-mapper` | Map design variables to Design Tokens | `token-mapping-*.md` |
+| `frontend-architect` | Page splitting, component architecture, state flow design, directory planning, large refactors | `architecture-proposal-*.md` |
+| `performance-optimizer` | Analyze performance bottlenecks (bundle size, render performance, network), output quantified optimization plan | `performance-review-*.md` |
+| `ui-checker` | UI visual issue debugging, design fidelity evaluation | `ui-fidelity-review-*.md` |
+| `figma-implementer` | Precise UI implementation from Figma/Sketch/MasterGo/Pixso/墨刀/摹客 design files | `design-implementation-*.md` |
+| `design-token-mapper` | Map design variables to project Design Tokens | `token-mapping-*.md` |
 
 ### Hooks (auto-executed)
 
@@ -216,18 +242,81 @@ git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugi
 | `PreToolUse(Bash)` | Block dangerous commands (rm -rf, force push, etc.) |
 | `PostToolUse(Write/Edit)` | Auto Prettier on modified files |
 | `Stop` | Run lint, type-check, test, build on session end |
-| `Notification` | Cross-platform desktop notifications |
+| `Notification` | Cross-platform desktop notifications (macOS / Linux / Windows) |
 
 ### MCP integration
 
 | Service | Purpose |
 |---------|---------|
-| Figma / Figma Desktop | Design context, variable definitions |
-| Sketch | Design selection screenshots |
-| MasterGo | DSL structure data |
-| Pixso | Local MCP for frame data, code snippets |
-| 墨刀 (Modao) | Prototype data, design descriptions |
-| 摹客 (Mockplus) | No MCP; user screenshots/annotations |
+| Figma | Read design context, variable definitions |
+| Figma Desktop | Figma desktop integration |
+| Sketch | Read design selection screenshots |
+| MasterGo | Read DSL structure data, component hierarchy and styles |
+| Pixso | Local MCP for frame data, code snippets, image assets |
+| 墨刀 | Get prototype data, generate design descriptions, import HTML |
+| 摹客 | No MCP; supported via user screenshots/annotations/exported CSS |
+
+### Project templates (initialized via `/init`)
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Project description, common commands, working principles, security requirements |
+| `settings.json` | Permission whitelist/blacklist, environment variables |
+| `rules/vue.md` | Vue 3 component standards and anti-patterns |
+| `rules/react.md` | React component standards and anti-patterns |
+| `rules/design-system.md` | Design system, Token, accessibility rules |
+| `rules/testing.md` | Testing and validation rules |
+| `rules/git-conventions.md` | Conventional Commits convention |
+| `rules/i18n.md` | Internationalization copy standards |
+| `rules/performance.md` | Frontend performance optimization rules |
+| `rules/api-layer.md` | API layer typing, error handling standards |
+| `rules/state-management.md` | State classification, management strategy, anti-patterns |
+| `rules/error-handling.md` | Error layering, Error Boundary, fallback UI, reporting standards |
+| `rules/naming-conventions.md` | Unified naming for files, components, variables, routes, API, CSS |
+
+---
+
+## ⚙️ Configuration
+
+### Prerequisites
+
+- Node.js >= 18
+- npm, pnpm, or yarn
+- Git Bash (required on Windows for hook script execution)
+
+### MCP server
+
+Before using design-related features, set the corresponding environment variables for your design tools:
+
+| Variable | Tool | How to get |
+|----------|------|------------|
+| `FIGMA_API_KEY` | Figma / Figma Desktop | Figma account settings > Personal Access Tokens |
+| `SKETCH_API_KEY` | Sketch | Sketch developer settings |
+| `MG_MCP_TOKEN` | MasterGo | MasterGo account settings > Security > Generate Token |
+| `MODAO_TOKEN` | 墨刀 | 墨刀 AI feature page for access token |
+
+> Pixso uses local MCP; enable MCP in the Pixso client. No extra env vars needed.
+> 摹客 has no MCP; works via user screenshots/annotations.
+
+**macOS / Linux:**
+
+```bash
+export FIGMA_API_KEY="your-figma-api-key"
+export SKETCH_API_KEY="your-sketch-api-key"
+export MG_MCP_TOKEN="your-mastergo-token"
+export MODAO_TOKEN="your-modao-token"
+```
+
+**Windows (PowerShell):**
+
+```powershell
+$env:FIGMA_API_KEY = "your-figma-api-key"
+$env:SKETCH_API_KEY = "your-sketch-api-key"
+$env:MG_MCP_TOKEN = "your-mastergo-token"
+$env:MODAO_TOKEN = "your-modao-token"
+```
+
+Add these to your shell config (`~/.bashrc`, `~/.zshrc`) or Windows system environment variables.
 
 ---
 
@@ -237,46 +326,87 @@ All review, analysis, and evaluation outputs are saved as Markdown files to the 
 
 | Report type | Filename pattern | Source |
 |-------------|------------------|--------|
-| Code review | `code-review-*.md` | `/review`, `frontend-code-review` |
-| Security review | `security-review-*.md` | `security-review` |
-| Accessibility | `accessibility-review-*.md` | `accessibility-check` |
-| Performance | `performance-review-*.md` | `performance-optimizer` |
-| Architecture | `architecture-proposal-*.md` | `frontend-architect` |
-| Design fidelity | `ui-fidelity-review-*.md` | `ui-checker` |
-| Design implementation | `design-implementation-*.md` | `figma-implementer` |
-| Token mapping | `token-mapping-*.md` | `design-token-mapper` |
-| Design plan | `design-plan-*.md` | `implement-from-design` |
-| Test fix | `test-fix-*.md` | `test-and-fix` |
+| Code review | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` command, `frontend-code-review` skill |
+| Security review | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill |
+| Accessibility | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` skill |
+| Performance | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` agent |
+| Architecture | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` agent |
+| Design fidelity | `ui-fidelity-review-YYYY-MM-DD-HHmmss.md` | `ui-checker` agent |
+| Design implementation | `design-implementation-YYYY-MM-DD-HHmmss.md` | `figma-implementer` agent |
+| Token mapping | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` agent |
+| Design plan | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` skill |
+| Test fix | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` skill |
 
-> **Tip:** Add `reports/` to `.gitignore` or commit as needed for history.
-
----
-
-## ⚙️ Configuration
-
-### MCP environment variables
-
-| Variable | Tool | How to get |
-|----------|------|------------|
-| `FIGMA_API_KEY` | Figma | Figma account > Personal Access Tokens |
-| `SKETCH_API_KEY` | Sketch | Sketch developer settings |
-| `MG_MCP_TOKEN` | MasterGo | MasterGo account > Security settings |
-| `MODAO_TOKEN` | 墨刀 | 墨刀 AI page |
-
-Pixso uses local MCP (enable in client); 摹客 works via user screenshots/annotations.
+> **Tip:** Add `reports/` to `.gitignore` to avoid committing auto-generated reports, or keep them committed for team history.
 
 ---
 
 ## 📥 Update
 
-```bash
-# Marketplace install
+For Marketplace installs, run in Claude Code:
+
+```
 /plugin marketplace update bovinphang-frontend-craft
+```
 
-# Enable auto-update: /plugin → Marketplaces → select → Enable auto-update
+Or enable auto-update so Claude Code pulls the latest on each start:
 
-# Submodule install
+1. Run `/plugin` in Claude Code to open the plugin manager
+2. Switch to the **Marketplaces** tab
+3. Select `bovinphang-frontend-craft`
+4. Choose **Enable auto-update**
+
+> Third-party Marketplaces do not enable auto-update by default. After enabling, Claude Code will refresh Marketplace data and update installed plugins on each start.
+
+For Git submodule installs:
+
+```bash
 git submodule update --remote .claude/plugins/frontend-craft
+```
+
+---
+
+## 🎯 Key concepts
+
+### Agents
+
+Sub-agents handle delegated tasks within a limited scope. Example:
+
+```markdown
+---
+name: performance-optimizer
+description: Analyze frontend performance bottlenecks and provide optimization plan
+tools: Read, Edit, Write, Glob, Grep, Bash
+model: sonnet
+---
+You are a senior engineer focused on frontend performance analysis and optimization...
+```
+
+### Skills
+
+Skills are workflow definitions invoked by commands or agents, including review dimensions, output format, and report file conventions:
+
+```markdown
+# Frontend code review
+## Review dimensions
+1. Architecture - Component boundaries, separation of concerns
+2. Type safety - any usage, props types
+...
+## Report file output
+- Directory: reports/
+- Filename: code-review-YYYY-MM-DD-HHmmss.md
+```
+
+### Hooks
+
+Hooks run on tool events. Example — block dangerous commands:
+
+```json
+{
+  "event": "PreToolUse",
+  "matcher": "tool == \"Bash\"",
+  "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/security-check.mjs\""
+}
 ```
 
 ---

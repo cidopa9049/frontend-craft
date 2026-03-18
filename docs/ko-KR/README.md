@@ -14,11 +14,7 @@
 
 **🌐 Language / 语言 / 語言 / 言語 / 언어**
 
-[**English**](../../README.md) | [简体中文](../../README.zh-CN.md)  | [繁體中文](../zh-TW/README.md) | [日本語](../ja-JP/README.md) 
-
-**🌐 Language / 语言 / 語言 / 言語 / 언어**
-
-[**English**](../../README.md) | [简体中文](../../README.zh-CN.md) | [繁體中文](../docs/ko-KR/README.md) | [日本語](../docs/ja-JP/README.md) | [한국어](README.md)
+[**English**](../../README.md) | [简体中文](../../README.zh-CN.md) | [繁體中文](../zh-TW/README.md) | [日本語](../ja-JP/README.md) | [한국어](README.md)
 
 </div>
 
@@ -54,7 +50,13 @@
 /frontend-craft:init
 ```
 
-초기화 후 프로젝트에 맞게 `.claude/CLAUDE.md`, `rules/`, `settings.json`을 수정하세요.
+초기화 후 프로젝트에 맞게 수정하세요:
+
+1. `.claude/CLAUDE.md` — 프로젝트 기본 정보, 패키지 매니저, 자주 쓰는 명령어
+2. `.claude/rules/` — 불필요한 규칙 삭제 (예: React 전용이면 `vue.md` 삭제, i18n 불필요 시 `i18n.md` 삭제)
+3. `.claude/settings.json` — 권한 화이트리스트 조정
+
+> **왜 필요한가요?** 플러그인은 재사용 가능한 Skills, Agents, Hooks를 제공합니다. CLAUDE.md와 rules는 프로젝트 수준 설정으로, Claude Code가 인식하려면 프로젝트 루트 `.claude/` 아래에 있어야 합니다. `/init` 명령어로 이 설정을 빠르게 완료할 수 있습니다.
 
 ### 3단계: 사용 시작
 
@@ -104,12 +106,12 @@ frontend-craft/
 |   |-- react-project-standard/ # React + TypeScript 프로젝트 규약
 |   |-- vue3-project-standard/   # Vue 3 + TypeScript 프로젝트 규약
 |   |-- implement-from-design/   # 디자인에서 UI 구현
-|   |-- test-and-fix/            # lint, type-check, test, build 및 수정
+|   |-- test-and-fix/           # lint, type-check, test, build 및 수정
 |   |-- legacy-web-standard/     # JS + jQuery + HTML 레거시 프로젝트 규약
 |
 |-- commands/         # 슬래시 명령어
 |   |-- init.md        # /init - 프로젝트 템플릿 초기화
-|   |-- review.md      # /review - 코드 리뷰
+|   |-- review.md      # /review - 코드 규약화 리뷰
 |   |-- scaffold.md    # /scaffold - page/feature/component 생성
 |
 |-- hooks/            # 이벤트 기반 자동화
@@ -128,6 +130,7 @@ frontend-craft/
 |   |-- rules/         # vue, react, design-system, testing 등
 |
 |-- .mcp.json         # MCP 서버 설정 (Figma, Sketch, MasterGo, Pixso, 墨刀)
+└-- README.md
 ```
 
 ---
@@ -139,7 +142,10 @@ frontend-craft/
 ### 옵션 1: 플러그인으로 설치 (권장)
 
 ```bash
+# 마켓플레이스 추가
 /plugin marketplace add bovinphang/frontend-craft
+
+# 플러그인 설치
 /plugin install frontend-craft@bovinphang-frontend-craft
 ```
 
@@ -164,6 +170,8 @@ frontend-craft/
 
 ### 옵션 3: 로컬 개발 / 테스트
 
+저장소를 클론한 뒤 `--plugin-dir`로 로드 (설치 불필요, 개발·디버깅용):
+
 ```bash
 git clone https://github.com/bovinphang/frontend-craft.git
 claude --plugin-dir ./frontend-craft
@@ -172,9 +180,23 @@ claude --plugin-dir ./frontend-craft
 ### 옵션 4: Git Submodule (프로젝트 공유)
 
 ```bash
+# 프로젝트 루트에 submodule로 추가
 git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugins/frontend-craft
-# 팀: git submodule update --init --recursive
-# 로드: claude --plugin-dir .claude/plugins/frontend-craft
+
+git add .gitmodules .claude/plugins/frontend-craft
+git commit -m "feat: add frontend-craft as shared Claude Code plugin"
+```
+
+팀원은 클론 후 실행:
+
+```bash
+git submodule update --init --recursive
+```
+
+그 다음 `--plugin-dir`로 로드:
+
+```bash
+claude --plugin-dir .claude/plugins/frontend-craft
 ```
 
 ---
@@ -186,31 +208,31 @@ git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugi
 | 명령어 | 용도 | 보고서 출력 |
 |--------|------|-------------|
 | `/frontend-craft:init` | 프로젝트 템플릿을 `.claude/`에 초기화 | — |
-| `/frontend-craft:review` | 지정 또는 최근 변경 파일의 코드 리뷰 | `code-review-*.md` |
-| `/frontend-craft:scaffold` | page / feature / component 구조 생성 | — |
+| `/frontend-craft:review` | 지정 또는 최근 변경 파일의 코드 규약화 리뷰, 등급별 보고서 출력 | `code-review-*.md` |
+| `/frontend-craft:scaffold` | 프로젝트 규약에 따라 page / feature / component 표준 구조와 보일러플레이트 생성 | — |
 
 ### Skills (자동 활성화)
 
 | Skill | 용도 | 보고서 출력 |
 |-------|------|-------------|
-| `frontend-code-review` | 아키텍처, 타입, 렌더링, 스타일, a11y | `code-review-*.md` |
-| `security-review` | XSS, CSRF, 민감 데이터, 입력 검증 | `security-review-*.md` |
-| `accessibility-check` | WCAG 2.1 AA 접근성 | `accessibility-review-*.md` |
-| `react-project-standard` | React + TypeScript 프로젝트 규약 | — |
-| `vue3-project-standard` | Vue 3 + TypeScript 프로젝트 규약 | — |
-| `implement-from-design` | 디자인에서 UI 구현 | `design-plan-*.md` |
-| `test-and-fix` | lint, type-check, test, build 및 수정 | `test-fix-*.md` |
-| `legacy-web-standard` | JS + jQuery + HTML 레거시 규약 | — |
+| `frontend-code-review` | 아키텍처, 타입, 렌더링, 스타일, 접근성 등 관점에서 코드 리뷰 | `code-review-*.md` |
+| `security-review` | XSS, CSRF, 민감 데이터 유출, 입력 검증 등 보안 리뷰 | `security-review-*.md` |
+| `accessibility-check` | WCAG 2.1 AA 접근성 검사 | `accessibility-review-*.md` |
+| `react-project-standard` | React + TypeScript 프로젝트 규약 (구조, 컴포넌트, 라우팅, 상태, API 계층) | — |
+| `vue3-project-standard` | Vue 3 + TypeScript 프로젝트 규약 (구조, 컴포넌트, 라우팅, Pinia, API 계층) | — |
+| `implement-from-design` | Figma/Sketch/MasterGo/Pixso/墨刀/摹客 디자인에서 UI 구현 | `design-plan-*.md` |
+| `test-and-fix` | lint, type-check, test, build 실행 및 실패 수정 | `test-fix-*.md` |
+| `legacy-web-standard` | JS + jQuery + HTML 레거시 프로젝트 개발·유지보수 규약 | — |
 
 ### Agents (서브 에이전트)
 
 | Agent | 용도 | 보고서 출력 |
 |-------|------|-------------|
-| `frontend-architect` | 페이지 분할, 컴포넌트 아키텍처, 상태 흐름, 리팩토링 | `architecture-proposal-*.md` |
-| `performance-optimizer` | 성능 분석, 최적화 제안 | `performance-review-*.md` |
-| `ui-checker` | UI 시각적 이슈, 디자인 충실도 평가 | `ui-fidelity-review-*.md` |
-| `figma-implementer` | 디자인 기반 정확한 UI 구현 | `design-implementation-*.md` |
-| `design-token-mapper` | 디자인 변수를 Design Token에 매핑 | `token-mapping-*.md` |
+| `frontend-architect` | 페이지 분할, 컴포넌트 아키텍처, 상태 흐름 설계, 디렉터리 계획, 대규모 리팩토링 | `architecture-proposal-*.md` |
+| `performance-optimizer` | 성능 병목 분석 (번들 크기, 렌더링 성능, 네트워크 요청), 정량화된 최적화 방안 출력 | `performance-review-*.md` |
+| `ui-checker` | UI 시각적 이슈 디버깅, 디자인 충실도 평가 | `ui-fidelity-review-*.md` |
+| `figma-implementer` | Figma/Sketch/MasterGo/Pixso/墨刀/摹客 디자인에서 정확한 UI 구현 | `design-implementation-*.md` |
+| `design-token-mapper` | 디자인 변수를 프로젝트 Design Token에 매핑 | `token-mapping-*.md` |
 
 ### Hooks (자동 실행)
 
@@ -220,67 +242,171 @@ git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugi
 | `PreToolUse(Bash)` | 위험한 명령어 차단 (rm -rf, force push 등) |
 | `PostToolUse(Write/Edit)` | 변경 파일에 자동 Prettier |
 | `Stop` | 세션 종료 시 lint, type-check, test, build 실행 |
-| `Notification` | 크로스 플랫폼 데스크톱 알림 |
+| `Notification` | 크로스 플랫폼 데스크톱 알림 (macOS / Linux / Windows) |
 
 ### MCP 연동
 
 | 서비스 | 용도 |
 |--------|------|
-| Figma / Figma Desktop | 디자인 컨텍스트, 변수 정의 |
-| Sketch | 디자인 선택 스크린샷 |
-| MasterGo | DSL 구조 데이터 |
-| Pixso | 로컬 MCP로 프레임 데이터, 코드 스니펫 |
-| 墨刀 (Modao) | 프로토타입 데이터, 디자인 설명 |
-| 摹客 (Mockplus) | MCP 없음, 사용자 스크린샷/주석으로 지원 |
+| Figma | 디자인 컨텍스트, 변수 정의 읽기 |
+| Figma Desktop | Figma 데스크톱 연동 |
+| Sketch | 디자인 선택 스크린샷 읽기 |
+| MasterGo | DSL 구조 데이터, 컴포넌트 계층 및 스타일 읽기 |
+| Pixso | 로컬 MCP로 프레임 데이터, 코드 스니펫, 이미지 리소스 획득 |
+| 墨刀 | 프로토타입 데이터 획득, 디자인 설명 생성, HTML 가져오기 |
+| 摹客 | MCP 없음, 사용자 스크린샷/주석/내보낸 CSS로 지원 |
 
----
+### 프로젝트 템플릿 (`/init`으로 초기화)
 
-## 📄 보고서 출력
-
-모든 리뷰·분석·평가 결과는 프로젝트 `reports/` 디렉터리에 Markdown 파일로 자동 저장됩니다.
-
-| 보고서 유형 | 파일명 패턴 | 출처 |
-|-------------|------------|------|
-| 코드 리뷰 | `code-review-*.md` | `/review`, `frontend-code-review` |
-| 보안 리뷰 | `security-review-*.md` | `security-review` |
-| 접근성 | `accessibility-review-*.md` | `accessibility-check` |
-| 성능 | `performance-review-*.md` | `performance-optimizer` |
-| 아키텍처 | `architecture-proposal-*.md` | `frontend-architect` |
-| 디자인 충실도 | `ui-fidelity-review-*.md` | `ui-checker` |
-| 디자인 구현 | `design-implementation-*.md` | `figma-implementer` |
-| Token 매핑 | `token-mapping-*.md` | `design-token-mapper` |
-| 디자인 계획 | `design-plan-*.md` | `implement-from-design` |
-| 테스트 수정 | `test-fix-*.md` | `test-and-fix` |
-
-> **팁:** `.gitignore`에 `reports/`를 추가하거나, 기록을 위해 필요 시 커밋하세요.
+| 파일 | 용도 |
+|------|------|
+| `CLAUDE.md` | 프로젝트 설명, 자주 쓰는 명령어, 작업 원칙, 보안 요구사항 |
+| `settings.json` | 권한 화이트리스트/블랙리스트, 환경 변수 |
+| `rules/vue.md` | Vue 3 컴포넌트 규약 및 안티패턴 |
+| `rules/react.md` | React 컴포넌트 규약 및 안티패턴 |
+| `rules/design-system.md` | 디자인 시스템, Token, 접근성 규칙 |
+| `rules/testing.md` | 테스트 및 검증 규칙 |
+| `rules/git-conventions.md` | Conventional Commits 커밋 규약 |
+| `rules/i18n.md` | 국제화 카피 규약 |
+| `rules/performance.md` | 프론트엔드 성능 최적화 규칙 |
+| `rules/api-layer.md` | API 계층 타입화, 오류 처리 규약 |
+| `rules/state-management.md` | 상태 분류, 관리 전략, 안티패턴 |
+| `rules/error-handling.md` | 오류 계층화, Error Boundary, 폴백 UI, 리포팅 규약 |
+| `rules/naming-conventions.md` | 파일, 컴포넌트, 변수, 라우트, API, CSS 통일 명명 규약 |
 
 ---
 
 ## ⚙️ 설정
 
-### MCP 환경 변수
+### 사전 요구사항
 
-| 변수 | 도구 | 획득 방법 |
-|------|------|----------|
-| `FIGMA_API_KEY` | Figma | Figma 계정 > Personal Access Tokens |
+- Node.js >= 18
+- npm, pnpm, yarn 중 하나
+- Git Bash (Windows에서 훅 스크립트 실행에 필요)
+
+### MCP 서버
+
+디자인 관련 기능 사용 전, 팀에서 사용하는 디자인 도구에 맞게 환경 변수를 설정하세요:
+
+| 환경 변수 | 도구 | 획득 방법 |
+|----------|------|----------|
+| `FIGMA_API_KEY` | Figma / Figma Desktop | Figma 계정 설정 > Personal Access Tokens |
 | `SKETCH_API_KEY` | Sketch | Sketch 개발자 설정 |
-| `MG_MCP_TOKEN` | MasterGo | MasterGo 계정 > 보안 설정 |
-| `MODAO_TOKEN` | 墨刀 | 墨刀 AI 페이지 |
+| `MG_MCP_TOKEN` | MasterGo | MasterGo 계정 설정 > 보안 설정 > Token 생성 |
+| `MODAO_TOKEN` | 墨刀 | 墨刀 AI 기능 페이지에서 액세스 토큰 획득 |
 
-Pixso는 로컬 MCP 사용(클라이언트에서 활성화); 摹客은 사용자 스크린샷/주석으로 지원.
+> Pixso는 로컬 MCP 사용. Pixso 클라이언트에서 MCP 활성화 필요. 추가 환경 변수 불필요.
+> 摹客은 MCP 없음. 사용자 스크린샷/주석으로 지원.
+
+**macOS / Linux:**
+
+```bash
+export FIGMA_API_KEY="your-figma-api-key"
+export SKETCH_API_KEY="your-sketch-api-key"
+export MG_MCP_TOKEN="your-mastergo-token"
+export MODAO_TOKEN="your-modao-token"
+```
+
+**Windows (PowerShell):**
+
+```powershell
+$env:FIGMA_API_KEY = "your-figma-api-key"
+$env:SKETCH_API_KEY = "your-sketch-api-key"
+$env:MG_MCP_TOKEN = "your-mastergo-token"
+$env:MODAO_TOKEN = "your-modao-token"
+```
+
+셸 설정 파일(`~/.bashrc`, `~/.zshrc`) 또는 Windows 시스템 환경 변수에 추가하는 것을 권장합니다.
+
+---
+
+## 📄 보고서 출력
+
+모든 리뷰·분석·평가 결과는 프로젝트 루트 `reports/` 디렉터리에 Markdown 파일로 자동 저장됩니다.
+
+| 보고서 유형 | 파일명 패턴 | 출처 |
+|-------------|------------|------|
+| 코드 리뷰 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 명령어, `frontend-code-review` 스킬 |
+| 보안 리뷰 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` 스킬 |
+| 접근성 | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` 스킬 |
+| 성능 | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` 에이전트 |
+| 아키텍처 | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` 에이전트 |
+| 디자인 충실도 | `ui-fidelity-review-YYYY-MM-DD-HHmmss.md` | `ui-checker` 에이전트 |
+| 디자인 구현 | `design-implementation-YYYY-MM-DD-HHmmss.md` | `figma-implementer` 에이전트 |
+| Token 매핑 | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` 에이전트 |
+| 디자인 계획 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` 스킬 |
+| 테스트 수정 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` 스킬 |
+
+> **팁:** `.gitignore`에 `reports/`를 추가해 자동 생성 보고서 커밋을 피하거나, 팀 기록을 위해 커밋을 유지하세요.
 
 ---
 
 ## 📥 업데이트
 
-```bash
-# Marketplace 설치
+Marketplace로 설치한 경우 Claude Code에서 실행:
+
+```
 /plugin marketplace update bovinphang-frontend-craft
+```
 
-# 자동 업데이트 활성화: /plugin → Marketplaces → 선택 → Enable auto-update
+또는 자동 업데이트를 켜면 Claude Code 시작 시마다 최신 버전을 자동으로 가져옵니다:
 
-# Submodule 설치
+1. Claude Code에서 `/plugin` 실행해 플러그인 관리자 열기
+2. **Marketplaces** 탭으로 전환
+3. `bovinphang-frontend-craft` 선택
+4. **Enable auto-update** 선택
+
+> 서드파티 Marketplace는 기본적으로 자동 업데이트가 꺼져 있습니다. 켜면 Claude Code 시작 시 Marketplace 데이터를 새로 고치고 설치된 플러그인을 업데이트합니다.
+
+Git submodule로 설치한 경우:
+
+```bash
 git submodule update --remote .claude/plugins/frontend-craft
+```
+
+---
+
+## 🎯 핵심 개념
+
+### 에이전트
+
+서브 에이전트는 위임된 작업을 제한된 범위에서 처리합니다. 예:
+
+```markdown
+---
+name: performance-optimizer
+description: 프론트엔드 성능 병목을 분석하고 최적화 방안 제시
+tools: Read, Edit, Write, Glob, Grep, Bash
+model: sonnet
+---
+당신은 프론트엔드 성능 분석과 최적화에 집중하는 시니어 엔지니어입니다...
+```
+
+### 스킬
+
+스킬은 명령어나 에이전트가 호출하는 워크플로우 정의로, 리뷰 관점, 출력 형식, 보고서 파일 규약을 포함합니다:
+
+```markdown
+# 프론트엔드 코드 리뷰
+## 리뷰 관점
+1. 아키텍처 - 컴포넌트 경계, 관심사 분리
+2. 타입 안전성 - any 사용, props 타입
+...
+## 보고서 파일 출력
+- 디렉터리: reports/
+- 파일명: code-review-YYYY-MM-DD-HHmmss.md
+```
+
+### 훅
+
+훅은 도구 이벤트 시 실행됩니다. 예 — 위험한 명령어 차단:
+
+```json
+{
+  "event": "PreToolUse",
+  "matcher": "tool == \"Bash\"",
+  "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/security-check.mjs\""
+}
 ```
 
 ---
