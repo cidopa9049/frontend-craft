@@ -98,5 +98,6 @@
 @./rules/state-management.md
 @./rules/error-handling.md
 @./rules/naming-conventions.md
+@./rules/code-comments.md
 @./rules/ci-cd.md
 @./rules/refactoring.md

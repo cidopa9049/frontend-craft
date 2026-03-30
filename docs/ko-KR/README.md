@@ -82,6 +82,39 @@
 
 ---
 
+## 다중 에이전트 스킬 설치(Skills CLI)
+
+**Claude Code**, **OpenAI Codex**, **Cursor**, **OpenCode**, **Gemini CLI**, **OpenClaw**, **Continue**, **CodeBuddy**, **Trae**, **Kimi Code CLI** 등 여러 AI 코딩 에이전트를 함께 쓰는 팀이라면 [Skills CLI](https://skills.sh/docs/cli)(`npx skills`)로 이 저장소의 **워크플로 스킬**을 각 도구가 사용하는 스킬 디렉터리에 설치할 수 있습니다. CLI는 수십 종 에이전트를 지원하며, 전체 목록은 대화형 프롬프트나 상위 문서를 참고하세요.
+
+**Skills CLI와 전체 플러그인의 차이**
+
+- **Skills CLI** — [`skills/`](../../skills/) 아래 스킬 패키지를 선택한 에이전트 경로에 맞게 설치합니다. 여러 도구에서 동일한 리뷰·프론트엔드 규칙을 맞출 때 적합합니다.
+- **전체 Claude Code 플러그인** — **Agents**, **슬래시 명령**, **Hooks**, **프로젝트 템플릿**(`templates/`)은 계속 아래 [설치](#설치) 절차(`/plugin marketplace add` 등)로 받아야 하며, 스킬만으로는 포함되지 않습니다.
+
+**요구 사항:** Node.js ≥ 18(이 README의 다른 섹션과 동일).
+
+**스킬 설치**
+
+```bash
+npx skills add bovinphang/frontend-craft
+```
+
+프롬프트에 따라 프로젝트/전역(`-g`), 심볼릭 링크/복사(`--copy`), 대상 에이전트를 선택합니다. 설치 없이 저장소에 있는 스킬 목록만 보려면 `npx skills add bovinphang/frontend-craft -l`을 실행하세요. 특정 스킬·에이전트만 지정하려면 `--skill` / `--agent`를 사용합니다(`npx skills --help` 참고).
+
+**스킬 업데이트**
+
+스킬을 설치한 프로젝트 디렉터리에서 실행합니다(전역 설치였다면 해당 범위에서).
+
+```bash
+npx skills update
+```
+
+설치된 모든 스킬을 최신 버전으로 갱신합니다. 먼저 `npx skills check`로 변경 가능 여부를 확인할 수 있습니다.
+
+**원격 분석(telemetry):** CLI는 기본적으로 익명 원격 분석을 수집할 수 있습니다. 끄려면 환경 변수 `DISABLE_TELEMETRY=1`을 설정하세요. 자세한 내용은 [skills.sh CLI 문서](https://skills.sh/docs/cli)를 참고하세요.
+
+---
+
 ## 📦 구성 내용
 
 이 저장소는 **Claude Code 플러그인**으로, 직접 설치하거나 `--plugin-dir`로 로컬 로드할 수 있습니다.

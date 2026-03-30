@@ -82,6 +82,39 @@
 
 ---
 
+## 多代理技能安裝（Skills CLI）
+
+若團隊同時使用 **Claude Code**、**OpenAI Codex**、**Cursor**、**OpenCode**、**Gemini CLI**、**OpenClaw**、**Continue**、**CodeBuddy**、**Trae**、**Kimi Code CLI** 等多種 AI 程式設計代理，可透過 [Skills CLI](https://skills.sh/docs/cli)（`npx skills`）將本倉庫中的**工作流技能**安裝到各工具約定的技能目錄。CLI 支援數十種代理；完整清單以互動提示或上游文件為準。
+
+**Skills CLI 與完整外掛的差異**
+
+- **Skills CLI** — 將 [`skills/`](../../skills/) 下的技能封裝安裝到您選擇的代理目錄，便於在多種工具間統一審查與前端規範。
+- **完整 Claude Code 外掛** — 仍需透過下文 [安裝](#安裝)（`/plugin marketplace add` 等）取得 **Agents**、**斜線指令**、**Hooks** 與 **專案範本**（`templates/`），而不僅是技能。
+
+**環境需求：** Node.js ≥ 18（與上文一致）。
+
+**安裝技能**
+
+```bash
+npx skills add bovinphang/frontend-craft
+```
+
+依提示選擇專案層級或全域安裝（`-g`）、符號連結或複製（`--copy`），以及要啟用的代理。若只想檢視倉庫內技能清單而不安裝，可執行 `npx skills add bovinphang/frontend-craft -l`。若需指定技能名稱或代理，可使用 `--skill` / `--agent`（詳見 `npx skills --help`）。
+
+**更新技能**
+
+在已安裝技能的專案目錄下執行（若為全域安裝，請使用對應範圍）：
+
+```bash
+npx skills update
+```
+
+此指令會將已安裝的技能更新至最新版本。亦可先執行 `npx skills check` 查看可用更新。
+
+**遙測：** CLI 預設可能蒐集匿名遙測。若需關閉，請設定環境變數 `DISABLE_TELEMETRY=1`。說明見 [skills.sh CLI 文件](https://skills.sh/docs/cli)。
+
+---
+
 ## 📦 內容說明
 
 本倉庫為 **Claude Code 插件**，可直接安裝或透過 `--plugin-dir` 本地載入。
