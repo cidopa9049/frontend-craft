@@ -84,7 +84,7 @@ skills:
 ---
 ```
 
-3. 在 README 的 Agents 表格中新增一行
+3. 在 README 的 Agents 表格中新增一行（并同步 **README.zh-CN.md**、**docs/*/README.md** 中目录树与表格、**`.claude-plugin/marketplace.json`** 中的 agent 数量描述，如适用）
 
 ## 如何添加 Command
 

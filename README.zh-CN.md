@@ -72,7 +72,7 @@
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **完成！** 你现在可以使用 5 个代理、14 个技能和 3 个命令。
+✨ **完成！** 你现在可以使用 9 个代理、14 个技能和 3 个命令。
 
 ---
 
@@ -127,6 +127,10 @@ frontend-craft/
 |
 |-- agents/           # 用于委托的专业子代理
 |   |-- frontend-architect.md    # 页面拆分、组件架构、状态流设计
+|   |-- frontend-code-reviewer.md # 专注前端的代码评审（质量、安全、无障碍）
+|   |-- frontend-security-reviewer.md # 前端攻击面：XSS、密钥、CSP、依赖
+|   |-- frontend-e2e-runner.md     # E2E 编写执行、flaky、产物与 CI
+|   |-- typescript-reviewer.md    # TS/JS 类型、异步、安全，只出报告
 |   |-- performance-optimizer.md # 性能瓶颈分析与优化方案
 |   |-- ui-checker.md            # UI 视觉问题、设计还原度评估
 |   |-- figma-implementer.md     # 按设计稿精确实现 UI
@@ -272,6 +276,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | Agent | 用途 | 输出报告 |
 |-------|------|----------|
 | `frontend-architect` | 页面拆分、组件架构、状态流设计、目录规划、大型重构 | `architecture-proposal-*.md` |
+| `frontend-code-reviewer` | 前端代码评审：React/Vue/Next/Nuxt、TS、样式、客户端安全、按置信度降噪 | `code-review-*.md` |
+| `frontend-security-reviewer` | 前端安全：XSS、客户端密钥、危险 DOM/API、第三方脚本、CSP、依赖审计 | `security-review-*.md` |
+| `frontend-e2e-runner` | E2E 编写与执行（Playwright/Cypress）、flaky 隔离、Trace/截图/视频、CI 对齐；可选摘要报告 | `e2e-summary-*.md`（可选） |
+| `typescript-reviewer` | TS/JS 专项：先跑 typecheck/eslint、PR 就绪检查、类型与异步与安全、惯用法；只报告不直接改代码 | `typescript-review-*.md` |
 | `performance-optimizer` | 分析性能瓶颈（打包体积、渲染性能、网络请求），输出量化优化方案 | `performance-review-*.md` |
 | `ui-checker` | UI 视觉问题排查、设计还原度评估 | `ui-fidelity-review-*.md` |
 | `figma-implementer` | 按 Figma/Sketch/MasterGo/Pixso/墨刀/摹客设计稿精确实现 UI | `design-implementation-*.md` |
@@ -371,8 +379,9 @@ $env:MODAO_TOKEN = "your-modao-token"
 
 | 报告类型 | 文件名模式 | 来源 |
 |----------|-----------|------|
-| 代码审查 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 命令、`frontend-code-review` skill |
-| 安全审查 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill |
+| 代码审查 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 命令、`frontend-code-review` skill、`frontend-code-reviewer` agent |
+| TS/JS 专项评审 | `typescript-review-YYYY-MM-DD-HHmmss.md` | `typescript-reviewer` agent |
+| 安全审查 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill、`frontend-security-reviewer` agent |
 | 无障碍检查 | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` skill |
 | 性能分析 | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` agent |
 | 架构方案 | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` agent |
@@ -381,6 +390,7 @@ $env:MODAO_TOKEN = "your-modao-token"
 | Token 映射 | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` agent |
 | 设计计划 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` skill |
 | 测试修复 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` skill |
+| E2E 运行摘要 | `e2e-summary-YYYY-MM-DD-HHmmss.md` | `frontend-e2e-runner` agent（可选） |
 | 迁移计划 | `migration-plan-YYYY-MM-DD-HHmmss.md` | `legacy-to-modern-migration` skill |
 
 > **建议**：在 `.gitignore` 中添加 `reports/` 以避免将自动生成的报告提交到代码仓库，或保留提交以便团队成员查看历史审查记录。

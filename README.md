@@ -72,7 +72,7 @@ After initialization, customize for your project:
 /plugin list frontend-craft@bovinphang-frontend-craft
 ```
 
-✨ **Done!** You now have access to 5 agents, 14 skills, and 3 commands.
+✨ **Done!** You now have access to 9 agents, 14 skills, and 3 commands.
 
 ---
 
@@ -127,6 +127,10 @@ frontend-craft/
 |
 |-- agents/           # Specialized sub-agents for delegation
 |   |-- frontend-architect.md    # Page splitting, component architecture, state flow
+|   |-- frontend-code-reviewer.md # Frontend-focused code review (quality, security, a11y)
+|   |-- frontend-security-reviewer.md # Frontend attack surface: XSS, secrets, CSP, deps
+|   |-- frontend-e2e-runner.md     # E2E authoring, execution, flaky handling, artifacts, CI
+|   |-- typescript-reviewer.md    # TS/JS type safety, async, security, report-only review
 |   |-- performance-optimizer.md # Performance bottleneck analysis and optimization
 |   |-- ui-checker.md            # UI visual issues, design fidelity evaluation
 |   |-- figma-implementer.md     # Precise UI implementation from design
@@ -272,6 +276,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | Agent | Purpose | Report output |
 |-------|---------|----------------|
 | `frontend-architect` | Page splitting, component architecture, state flow design, directory planning, large refactors | `architecture-proposal-*.md` |
+| `frontend-code-reviewer` | Frontend code review: React/Vue/Next/Nuxt, TS, styles, client-side security, confidence-based findings | `code-review-*.md` |
+| `frontend-security-reviewer` | Frontend security: XSS, client secrets, dangerous DOM/APIs, third-party scripts, CSP, dependency audit | `security-review-*.md` |
+| `frontend-e2e-runner` | E2E authoring & runs (Playwright/Cypress), flaky quarantine, traces/screenshots/videos, CI alignment; optional `e2e-summary-*.md` | `e2e-summary-*.md` (optional) |
+| `typescript-reviewer` | TS/JS review: run typecheck/eslint, PR merge readiness, type safety, async, security, idiomatic patterns; report-only | `typescript-review-*.md` |
 | `performance-optimizer` | Analyze performance bottlenecks (bundle size, render performance, network), output quantified optimization plan | `performance-review-*.md` |
 | `ui-checker` | UI visual issue debugging, design fidelity evaluation | `ui-fidelity-review-*.md` |
 | `figma-implementer` | Precise UI implementation from Figma/Sketch/MasterGo/Pixso/墨刀/摹客 design files | `design-implementation-*.md` |
@@ -372,8 +380,9 @@ All review, analysis, and evaluation outputs are saved as Markdown files to the 
 
 | Report type | Filename pattern | Source |
 |-------------|------------------|--------|
-| Code review | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` command, `frontend-code-review` skill |
-| Security review | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill |
+| Code review | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` command, `frontend-code-review` skill, `frontend-code-reviewer` agent |
+| TypeScript / JS review | `typescript-review-YYYY-MM-DD-HHmmss.md` | `typescript-reviewer` agent |
+| Security review | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill, `frontend-security-reviewer` agent |
 | Accessibility | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` skill |
 | Performance | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` agent |
 | Architecture | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` agent |
@@ -382,6 +391,7 @@ All review, analysis, and evaluation outputs are saved as Markdown files to the 
 | Token mapping | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` agent |
 | Design plan | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` skill |
 | Test fix | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` skill |
+| E2E run summary | `e2e-summary-YYYY-MM-DD-HHmmss.md` | `frontend-e2e-runner` agent (optional) |
 | Migration plan | `migration-plan-YYYY-MM-DD-HHmmss.md` | `legacy-to-modern-migration` skill |
 
 > **Tip:** Add `reports/` to `.gitignore` to avoid committing auto-generated reports, or keep them committed for team history.

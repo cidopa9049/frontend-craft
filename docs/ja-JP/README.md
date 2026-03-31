@@ -127,6 +127,10 @@ frontend-craft/
 |
 |-- agents/           # 委任用の専門サブエージェント
 |   |-- frontend-architect.md    # ページ分割、コンポーネントアーキテクチャ、状態フロー
+|   |-- frontend-code-reviewer.md # フロントエンド特化コードレビュー（品質、セキュリティ、a11y）
+|   |-- frontend-security-reviewer.md # フロントエンド攻撃面：XSS、シークレット、CSP、依存関係
+|   |-- frontend-e2e-runner.md     # E2E 作成・実行、flaky、成果物と CI
+|   |-- typescript-reviewer.md    # TS/JS 型・非同期・セキュリティ、レポートのみ
 |   |-- performance-optimizer.md # パフォーマンスボトルネック分析と最適化
 |   |-- ui-checker.md            # UI ビジュアル問題、デザイン忠実度評価
 |   |-- figma-implementer.md     # デザインからの正確な UI 実装
@@ -272,6 +276,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | Agent | 用途 | レポート出力 |
 |-------|------|--------------|
 | `frontend-architect` | ページ分割、コンポーネントアーキテクチャ、状態フロー、ディレクトリ計画、大規模リファクタリング | `architecture-proposal-*.md` |
+| `frontend-code-reviewer` | フロントエンドコードレビュー：React/Vue/Next/Nuxt、TS、スタイル、クライアント側セキュリティ | `code-review-*.md` |
+| `frontend-security-reviewer` | フロントエンドセキュリティ：XSS、クライアントシークレット、危険な DOM/API、CSP、依存監査 | `security-review-*.md` |
+| `frontend-e2e-runner` | E2E 作成・実行（Playwright/Cypress）、flaky 隔離、Trace/スクリーンショット、CI；任意で要約レポート | `e2e-summary-*.md`（任意） |
+| `typescript-reviewer` | TS/JS レビュー：typecheck/eslint、PR マージ可否、型・非同期・セキュリティ；コード改変なし | `typescript-review-*.md` |
 | `performance-optimizer` | パフォーマンスボトルネック分析（バンドルサイズ、レンダリング、ネットワーク）、定量化された最適化案 | `performance-review-*.md` |
 | `ui-checker` | UI ビジュアル問題のデバッグ、デザイン忠実度評価 | `ui-fidelity-review-*.md` |
 | `figma-implementer` | Figma/Sketch/MasterGo/Pixso/墨刀/摹客 のデザインから正確に UI を実装 | `design-implementation-*.md` |
@@ -371,8 +379,9 @@ $env:MODAO_TOKEN = "your-modao-token"
 
 | レポート種別 | ファイル名パターン | ソース |
 |--------------|-------------------|--------|
-| コードレビュー | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` コマンド、`frontend-code-review` スキル |
-| セキュリティレビュー | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` スキル |
+| コードレビュー | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` コマンド、`frontend-code-review` スキル、`frontend-code-reviewer` エージェント |
+| TS/JS レビュー | `typescript-review-YYYY-MM-DD-HHmmss.md` | `typescript-reviewer` エージェント |
+| セキュリティレビュー | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` スキル、`frontend-security-reviewer` エージェント |
 | アクセシビリティ | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` スキル |
 | パフォーマンス | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` エージェント |
 | アーキテクチャ | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` エージェント |
@@ -381,6 +390,7 @@ $env:MODAO_TOKEN = "your-modao-token"
 | Token マッピング | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` エージェント |
 | デザイン計画 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` スキル |
 | テスト修正 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` スキル |
+| E2E 実行サマリー | `e2e-summary-YYYY-MM-DD-HHmmss.md` | `frontend-e2e-runner` エージェント（任意） |
 | 移行計画 | `migration-plan-YYYY-MM-DD-HHmmss.md` | `legacy-to-modern-migration` スキル |
 
 > **ヒント：** `.gitignore` に `reports/` を追加して自動生成レポートのコミットを避けるか、チームの履歴のためにコミットを残してください。

@@ -127,6 +127,10 @@ frontend-craft/
 |
 |-- agents/           # 위임용 전문 서브 에이전트
 |   |-- frontend-architect.md    # 페이지 분할, 컴포넌트 아키텍처, 상태 흐름
+|   |-- frontend-code-reviewer.md # 프론트엔드 특화 코드 리뷰(품질, 보안, a11y)
+|   |-- frontend-security-reviewer.md # 프론트엔드 공격면: XSS, 시크릿, CSP, 의존성
+|   |-- frontend-e2e-runner.md     # E2E 작성·실행, flaky, 아티팩트와 CI
+|   |-- typescript-reviewer.md    # TS/JS 타입·비동기·보안, 보고서 전용
 |   |-- performance-optimizer.md # 성능 병목 분석 및 최적화
 |   |-- ui-checker.md            # UI 시각적 이슈, 디자인 충실도 평가
 |   |-- figma-implementer.md     # 디자인 기반 정확한 UI 구현
@@ -272,6 +276,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | Agent | 용도 | 보고서 출력 |
 |-------|------|-------------|
 | `frontend-architect` | 페이지 분할, 컴포넌트 아키텍처, 상태 흐름 설계, 디렉터리 계획, 대규모 리팩토링 | `architecture-proposal-*.md` |
+| `frontend-code-reviewer` | 프론트엔드 코드 리뷰: React/Vue/Next/Nuxt, TS, 스타일, 클라이언트 보안 | `code-review-*.md` |
+| `frontend-security-reviewer` | 프론트엔드 보안: XSS, 클라이언트 시크릿, 위험한 DOM/API, CSP, 의존성 감사 | `security-review-*.md` |
+| `frontend-e2e-runner` | E2E 작성·실행 (Playwright/Cypress), flaky 격리, Trace/스크린샷, CI; 선택 요약 리포트 | `e2e-summary-*.md` (선택) |
+| `typescript-reviewer` | TS/JS 리뷰: typecheck/eslint, PR 병합 준비, 타입·비동기·보안; 코드 직접 수정 없음 | `typescript-review-*.md` |
 | `performance-optimizer` | 성능 병목 분석 (번들 크기, 렌더링 성능, 네트워크 요청), 정량화된 최적화 방안 출력 | `performance-review-*.md` |
 | `ui-checker` | UI 시각적 이슈 디버깅, 디자인 충실도 평가 | `ui-fidelity-review-*.md` |
 | `figma-implementer` | Figma/Sketch/MasterGo/Pixso/墨刀/摹客 디자인에서 정확한 UI 구현 | `design-implementation-*.md` |
@@ -371,8 +379,9 @@ $env:MODAO_TOKEN = "your-modao-token"
 
 | 보고서 유형 | 파일명 패턴 | 출처 |
 |-------------|------------|------|
-| 코드 리뷰 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 명령어, `frontend-code-review` 스킬 |
-| 보안 리뷰 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` 스킬 |
+| 코드 리뷰 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 명령어, `frontend-code-review` 스킬, `frontend-code-reviewer` 에이전트 |
+| TS/JS 리뷰 | `typescript-review-YYYY-MM-DD-HHmmss.md` | `typescript-reviewer` 에이전트 |
+| 보안 리뷰 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` 스킬, `frontend-security-reviewer` 에이전트 |
 | 접근성 | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` 스킬 |
 | 성능 | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` 에이전트 |
 | 아키텍처 | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` 에이전트 |
@@ -381,6 +390,7 @@ $env:MODAO_TOKEN = "your-modao-token"
 | Token 매핑 | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` 에이전트 |
 | 디자인 계획 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` 스킬 |
 | 테스트 수정 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` 스킬 |
+| E2E 실행 요약 | `e2e-summary-YYYY-MM-DD-HHmmss.md` | `frontend-e2e-runner` 에이전트 (선택) |
 | 마이그레이션 계획 | `migration-plan-YYYY-MM-DD-HHmmss.md` | `legacy-to-modern-migration` 스킬 |
 
 > **팁:** `.gitignore`에 `reports/`를 추가해 자동 생성 보고서 커밋을 피하거나, 팀 기록을 위해 커밋을 유지하세요.

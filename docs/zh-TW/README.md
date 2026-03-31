@@ -127,6 +127,10 @@ frontend-craft/
 |
 |-- agents/           # 委派用的專業子代理
 |   |-- frontend-architect.md    # 頁面拆分、元件架構、狀態流設計
+|   |-- frontend-code-reviewer.md # 專注前端的程式碼審查（品質、安全、無障礙）
+|   |-- frontend-security-reviewer.md # 前端攻擊面：XSS、金鑰、CSP、依賴
+|   |-- frontend-e2e-runner.md     # E2E 撰寫執行、flaky、產物與 CI
+|   |-- typescript-reviewer.md    # TS/JS 型別、非同步、安全，僅輸出報告
 |   |-- performance-optimizer.md # 效能瓶頸分析與優化方案
 |   |-- ui-checker.md            # UI 視覺問題、設計還原度評估
 |   |-- figma-implementer.md     # 依設計稿精確實作 UI
@@ -272,6 +276,10 @@ claude --plugin-dir .claude/plugins/frontend-craft
 | Agent | 用途 | 輸出報告 |
 |-------|------|----------|
 | `frontend-architect` | 頁面拆分、元件架構、狀態流設計、目錄規劃、大型重構 | `architecture-proposal-*.md` |
+| `frontend-code-reviewer` | 前端程式碼審查：React/Vue/Next/Nuxt、TS、樣式、用戶端安全 | `code-review-*.md` |
+| `frontend-security-reviewer` | 前端安全：XSS、用戶端金鑰、危險 DOM/API、CSP、依賴稽核 | `security-review-*.md` |
+| `frontend-e2e-runner` | E2E 撰寫與執行（Playwright/Cypress）、flaky 隔離、Trace/截圖、CI；可選摘要報告 | `e2e-summary-*.md`（可選） |
+| `typescript-reviewer` | TS/JS 審查：typecheck/eslint、PR 合併就緒、型別與非同步與安全；不直接改程式 | `typescript-review-*.md` |
 | `performance-optimizer` | 分析效能瓶頸（打包體積、渲染效能、網路請求），輸出量化優化方案 | `performance-review-*.md` |
 | `ui-checker` | UI 視覺問題排查、設計還原度評估 | `ui-fidelity-review-*.md` |
 | `figma-implementer` | 依 Figma/Sketch/MasterGo/Pixso/墨刀/摹客設計稿精確實作 UI | `design-implementation-*.md` |
@@ -371,8 +379,9 @@ $env:MODAO_TOKEN = "your-modao-token"
 
 | 報告類型 | 檔名模式 | 來源 |
 |----------|----------|------|
-| 程式碼審查 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 指令、`frontend-code-review` skill |
-| 安全審查 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill |
+| 程式碼審查 | `code-review-YYYY-MM-DD-HHmmss.md` | `/review` 指令、`frontend-code-review` skill、`frontend-code-reviewer` agent |
+| TS/JS 審查 | `typescript-review-YYYY-MM-DD-HHmmss.md` | `typescript-reviewer` agent |
+| 安全審查 | `security-review-YYYY-MM-DD-HHmmss.md` | `security-review` skill、`frontend-security-reviewer` agent |
 | 無障礙檢查 | `accessibility-review-YYYY-MM-DD-HHmmss.md` | `accessibility-check` skill |
 | 效能分析 | `performance-review-YYYY-MM-DD-HHmmss.md` | `performance-optimizer` agent |
 | 架構方案 | `architecture-proposal-YYYY-MM-DD-HHmmss.md` | `frontend-architect` agent |
@@ -381,6 +390,7 @@ $env:MODAO_TOKEN = "your-modao-token"
 | Token 對應 | `token-mapping-YYYY-MM-DD-HHmmss.md` | `design-token-mapper` agent |
 | 設計計畫 | `design-plan-YYYY-MM-DD-HHmmss.md` | `implement-from-design` skill |
 | 測試修復 | `test-fix-YYYY-MM-DD-HHmmss.md` | `test-and-fix` skill |
+| E2E 執行摘要 | `e2e-summary-YYYY-MM-DD-HHmmss.md` | `frontend-e2e-runner` agent（可選） |
 | 遷移計畫 | `migration-plan-YYYY-MM-DD-HHmmss.md` | `legacy-to-modern-migration` skill |
 
 > **建議：** 於 `.gitignore` 中加入 `reports/` 以避免將自動產生的報告提交至程式碼倉庫，或保留提交以便團隊成員檢視歷史審查記錄。
